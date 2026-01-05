@@ -15,6 +15,6 @@ public interface PixKeyMapper {
 
     PixKeyEntity toEntity(PixKey pixKey);
 
-    @Mapping(target = "walletCode", source = "walletId.code")
+    @Mapping(target = "walletCode", source = "wallet.code")
     CreatePixKeyResponse toResponse(PixKey pixKey);
 }

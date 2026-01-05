@@ -15,7 +15,7 @@ public class PixKeyEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "wallet_id")
-    private WalletEntity walletId;
+    private WalletEntity wallet;
 
     @Column(name = "key_type")
     @Enumerated(EnumType.STRING)
@@ -32,12 +32,12 @@ public class PixKeyEntity {
         this.id = id;
     }
 
-    public WalletEntity getWalletId() {
-        return walletId;
+    public WalletEntity getWallet() {
+        return wallet;
     }
 
-    public void setWalletId(WalletEntity walletId) {
-        this.walletId = walletId;
+    public void setWallet(WalletEntity wallet) {
+        this.wallet = wallet;
     }
 
     public PixKeyType getPixKeyType() {

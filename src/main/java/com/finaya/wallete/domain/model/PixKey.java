@@ -6,14 +6,14 @@ public class PixKey {
 
     private Long id;
 
-    private final Wallet walletId;
+    private final Wallet wallet;
 
     private final PixKeyType pixKeyType;
 
     private final String key;
 
-    public PixKey(Wallet walletId, PixKeyType pixKeyType, String key) {
-        this.walletId = walletId;
+    public PixKey(Wallet wallet, PixKeyType pixKeyType, String key) {
+        this.wallet = wallet;
         this.pixKeyType = pixKeyType;
         this.key = key;
     }
@@ -22,8 +22,8 @@ public class PixKey {
         return id;
     }
 
-    public Wallet getWalletId() {
-        return walletId;
+    public Wallet getWallet() {
+        return wallet;
     }
 
     public PixKeyType getPixKeyType() {

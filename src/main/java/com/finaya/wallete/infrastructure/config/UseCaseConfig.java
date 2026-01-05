@@ -4,6 +4,7 @@ import com.finaya.wallete.application.port.out.PixKeyRepositoryPort;
 import com.finaya.wallete.application.port.out.PixTransactionRepositoryPort;
 import com.finaya.wallete.application.port.out.WalletLedgerRepositoryPort;
 import com.finaya.wallete.application.port.out.WalletRepositoryPort;
+import com.finaya.wallete.application.service.PixTransactionService;
 import com.finaya.wallete.application.usecase.pix.CreatePixTransferUseCase;
 import com.finaya.wallete.application.usecase.pix.ProcessPixWebHookUseCase;
 import com.finaya.wallete.application.usecase.wallet.*;
@@ -68,8 +69,17 @@ public class UseCaseConfig {
 
     @Bean
     public ProcessPixWebHookUseCase processPixWebHookUseCase(
+            PixTransactionRepositoryPort pixTransactionRepositoryPort,
+            PixTransactionService pixTransactionService) {
+
+        return new ProcessPixWebHookUseCase(pixTransactionRepositoryPort, pixTransactionService);
+    }
+
+    @Bean
+    public PixTransactionService pixTransactionService(
+            WalletLedgerRepositoryPort walletLedgerRepositoryPort,
             PixTransactionRepositoryPort pixTransactionRepositoryPort) {
 
-        return new ProcessPixWebHookUseCase(pixTransactionRepositoryPort);
+        return new PixTransactionService(walletLedgerRepositoryPort, pixTransactionRepositoryPort);
     }
 }

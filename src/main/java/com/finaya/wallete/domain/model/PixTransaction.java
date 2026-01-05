@@ -15,8 +15,8 @@ public class PixTransaction {
     private final String endToEndId;
     private final UUID idempotencyKey;
 
-    private final Long fromWalletId;
-    private final Long toWalletId;
+    private final Wallet fromWallet;
+    private final Wallet toWallet;
     private final String toPixKey;
     private final BigDecimal amount;
     private final CurrencyType currency;
@@ -29,8 +29,8 @@ public class PixTransaction {
             Long id,
             String endToEndId,
             UUID idempotencyKey,
-            Long fromWalletId,
-            Long toWalletId,
+            Wallet fromWallet,
+            Wallet toWallet,
             String toPixKey,
             BigDecimal amount,
             CurrencyType currency,
@@ -40,8 +40,8 @@ public class PixTransaction {
         this.id = id;
         this.endToEndId = endToEndId;
         this.idempotencyKey = idempotencyKey;
-        this.fromWalletId = fromWalletId;
-        this.toWalletId = toWalletId;
+        this.fromWallet = fromWallet;
+        this.toWallet = toWallet;
         this.toPixKey = toPixKey;
         this.amount = amount;
         this.currency = currency;
@@ -51,16 +51,16 @@ public class PixTransaction {
     }
 
     public PixTransaction(
-            Long fromWalletId,
-            Long toWalletId,
+            Wallet fromWallet,
+            Wallet toWallet,
             UUID idempotencyKey,
             String toPixKey,
             BigDecimal amount,
             CurrencyType currency) {
         this.endToEndId = PixUtil.generateEndToEnd();
         this.idempotencyKey = idempotencyKey;
-        this.fromWalletId = fromWalletId;
-        this.toWalletId = toWalletId;
+        this.fromWallet = fromWallet;
+        this.toWallet = toWallet;
         this.toPixKey = toPixKey;
         this.amount = amount;
         this.currency = currency;
@@ -102,12 +102,12 @@ public class PixTransaction {
         return idempotencyKey;
     }
 
-    public Long getFromWalletId() {
-        return fromWalletId;
+    public Wallet getFromWallet() {
+        return fromWallet;
     }
 
-    public Long getToWalletId() {
-        return toWalletId;
+    public Wallet getToWallet() {
+        return toWallet;
     }
 
     public String getToPixKey() {

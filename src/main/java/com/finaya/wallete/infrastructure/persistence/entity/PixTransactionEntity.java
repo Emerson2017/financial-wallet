@@ -2,6 +2,7 @@ package com.finaya.wallete.infrastructure.persistence.entity;
 
 import com.finaya.wallete.domain.enums.CurrencyType;
 import com.finaya.wallete.domain.enums.PixTransactionStatus;
+import com.finaya.wallete.domain.model.Wallet;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
@@ -24,11 +25,13 @@ public class PixTransactionEntity {
     @Column(name = "idempotency_key")
     private UUID idempotencyKey;
 
-    @Column(name = "from_wallet_id")
-    private Long fromWalletId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "from_wallet_id")
+    private WalletEntity fromWallet;
 
-    @Column(name = "to_wallet_id")
-    private Long toWalletId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "to_wallet_id")
+    private WalletEntity toWallet;
 
     @Column(name = "to_pix_key")
     private String toPixKey;
@@ -76,20 +79,20 @@ public class PixTransactionEntity {
         this.idempotencyKey = idempotencyKey;
     }
 
-    public Long getFromWalletId() {
-        return fromWalletId;
+    public WalletEntity getFromWallet() {
+        return fromWallet;
     }
 
-    public void setFromWalletId(Long fromWalletId) {
-        this.fromWalletId = fromWalletId;
+    public void setFromWallet(WalletEntity fromWallet) {
+        this.fromWallet = fromWallet;
     }
 
-    public Long getToWalletId() {
-        return toWalletId;
+    public WalletEntity getToWallet() {
+        return toWallet;
     }
 
-    public void setToWalletId(Long toWalletId) {
-        this.toWalletId = toWalletId;
+    public void setToWallet(WalletEntity toWallet) {
+        this.toWallet = toWallet;
     }
 
     public String getToPixKey() {

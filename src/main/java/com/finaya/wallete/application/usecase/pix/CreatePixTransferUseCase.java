@@ -50,18 +50,18 @@ public class CreatePixTransferUseCase {
         String toPixKey = request.toPixKey();
         BigDecimal amount = request.amount();
 
-        Wallet fromWallet = walletRepositoryPort.findById(request.fromWalletId())
+        Wallet fromWallet = walletRepositoryPort.findById(fromWalletId)
                 .orElseThrow(() -> new RuntimeException("Wallet Not Found"));
 
         PixKey pixKey = pixKeyRepositoryPort.findByKey(toPixKey)
                 .orElseThrow(() -> new RuntimeException("Key Not Found"));
 
-        Long toWalletId = pixKey.getWalletId().getId();
+        Wallet toWallet = pixKey.getWallet();
 
         WalletLedger ledger = fromWallet.debit(request.amount(), WalletMovementType.PIX_TRANSFER);
         walletLedgerRepositoryPort.save(ledger);
 
-        PixTransaction pixTransaction = new PixTransaction(fromWalletId, toWalletId, idempotencyKey, toPixKey, amount, CurrencyType.BRL);
+        PixTransaction pixTransaction = new PixTransaction(fromWallet, toWallet, idempotencyKey, toPixKey, amount, CurrencyType.BRL);
         pixTransaction = pixTransactionRepositoryPort.save(pixTransaction);
 
         //todo: Integração com serviço PIX
