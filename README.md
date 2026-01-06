@@ -16,6 +16,16 @@ docker-compose up -d
 
 4. Obs: Caso possua um Postgres em execução na sua máquina, é recomendado interrompê-lo
 
+### Execução
+
+1. Baixe as dependências do projeto
+2. Execute o comando na raiz do projeto:
+```bash 
+mvn clean install
+```
+3. Inicie a aplicação através da classe **WalleteApplication.java**
+
+
 ### 📚 Opções de Documentação
 Escolha a opção que melhor se adapta à sua necessidade (após execução):
 
