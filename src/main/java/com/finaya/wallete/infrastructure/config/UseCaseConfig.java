@@ -77,9 +77,12 @@ public class UseCaseConfig {
 
     @Bean
     public PixTransactionService pixTransactionService(
+            WalletRepositoryPort walletRepositoryPort,
             WalletLedgerRepositoryPort walletLedgerRepositoryPort,
             PixTransactionRepositoryPort pixTransactionRepositoryPort) {
 
-        return new PixTransactionService(walletLedgerRepositoryPort, pixTransactionRepositoryPort);
+        return new PixTransactionService(walletRepositoryPort,
+                walletLedgerRepositoryPort,
+                pixTransactionRepositoryPort);
     }
 }

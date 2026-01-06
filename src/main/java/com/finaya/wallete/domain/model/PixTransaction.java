@@ -69,7 +69,7 @@ public class PixTransaction {
 
     public PixTransaction confirm() {
         if (!getStatus().equals(PixTransactionStatus.PENDING)) {
-            throw new InvalidPixTransactionStatusException("The status needs to be PENDING.");
+            throw new InvalidPixTransactionStatusException("Pix already processed.");
         }
 
         this.status = PixTransactionStatus.CONFIRMED;
@@ -80,7 +80,7 @@ public class PixTransaction {
 
     public PixTransaction reject() {
         if (!getStatus().equals(PixTransactionStatus.PENDING)) {
-            throw new InvalidPixTransactionStatusException("The status needs to be PENDING.");
+            throw new InvalidPixTransactionStatusException("Pix already processed.");
         }
 
         this.status = PixTransactionStatus.REJECTED;

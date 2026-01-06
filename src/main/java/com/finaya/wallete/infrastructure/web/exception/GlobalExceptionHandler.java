@@ -2,6 +2,7 @@ package com.finaya.wallete.infrastructure.web.exception;
 
 import com.finaya.wallete.domain.exception.EntityNotFoundException;
 import com.finaya.wallete.domain.exception.InsufficientBalanceException;
+import com.finaya.wallete.domain.exception.InvalidPixTransactionStatusException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,18 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.UNPROCESSABLE_CONTENT)
                 .body(new ApiErrorResponse(
                         "INSUFFICIENT_BALANCE",
+                        ex.getMessage()
+                ));
+    }
+
+    @ExceptionHandler(InvalidPixTransactionStatusException.class)
+    public ResponseEntity<ApiErrorResponse> handleInvalidPixTransactionStatus(
+            InvalidPixTransactionStatusException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.UNPROCESSABLE_CONTENT)
+                .body(new ApiErrorResponse(
+                        "INVALID_PIX_TRANSACTION_STATUS",
                         ex.getMessage()
                 ));
     }
