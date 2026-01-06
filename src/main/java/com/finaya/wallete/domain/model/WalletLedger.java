@@ -60,7 +60,7 @@ public class WalletLedger {
                                      WalletMovementType movementType) {
         return new WalletLedger(
                 wallet.getId(),
-                UUID.randomUUID(),
+                wallet.getCode(),
                 BalanceOperation.DEBIT,
                 amount,
                 CurrencyType.BRL,

@@ -26,7 +26,7 @@ public class PixController {
 
     @PostMapping("/transfers")
     public CreatePixTransferResponse createPixTransfer(@RequestHeader("Idempotency-Key") UUID idempotencyKey,
-                                                       @RequestBody @Valid CreatePixTransferRequest createPixTransferRequest) {
+                                                       @RequestBody @Valid CreatePixTransferRequest createPixTransferRequest) throws InterruptedException {
         return createPixTransferUseCase.execute(createPixTransferRequest, idempotencyKey);
     }
 

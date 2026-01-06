@@ -28,6 +28,12 @@ public class WalletRepositoryAdapter implements WalletRepositoryPort {
     }
 
     @Override
+    public Optional<Wallet> findByIdWithLock(Long id) {
+        return repository.findByIdWithLock(id)
+                .map(mapper::toDomain);
+    }
+
+    @Override
     public Wallet save(Wallet wallet) {
         WalletEntity walletEntity = mapper.toEntity(wallet);
         repository.save(walletEntity);

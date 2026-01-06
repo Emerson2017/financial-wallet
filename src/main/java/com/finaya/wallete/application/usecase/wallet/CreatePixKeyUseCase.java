@@ -2,11 +2,13 @@ package com.finaya.wallete.application.usecase.wallet;
 
 import com.finaya.wallete.application.port.out.PixKeyRepositoryPort;
 import com.finaya.wallete.application.port.out.WalletRepositoryPort;
+import com.finaya.wallete.domain.exception.EntityNotFoundException;
 import com.finaya.wallete.domain.model.PixKey;
 import com.finaya.wallete.domain.model.Wallet;
 import com.finaya.wallete.infrastructure.dto.request.CreatePixKeyRequest;
 import com.finaya.wallete.infrastructure.dto.response.CreatePixKeyResponse;
 import com.finaya.wallete.infrastructure.mapper.PixKeyMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -24,14 +26,12 @@ public class CreatePixKeyUseCase {
         this.mapper = mapper;
     }
 
-    public CreatePixKeyResponse execute(Long idWallet, CreatePixKeyRequest request) {
-        Optional<Wallet> wallet = walletRepositoryPort.findById(idWallet);
+    @Transactional
+    public CreatePixKeyResponse execute(Long walletId, CreatePixKeyRequest request) {
+        Wallet wallet = walletRepositoryPort.findByIdWithLock(walletId)
+                .orElseThrow(() -> new EntityNotFoundException("Wallet Not Found"));
 
-        if (wallet.isEmpty()) {
-            throw new RuntimeException("Wallet Not Found.");
-        }
-
-        PixKey pixKey = new PixKey(wallet.get(), request.pixKeyType(), request.key());
+        PixKey pixKey = new PixKey(wallet, request.pixKeyType(), request.key());
         return mapper.toResponse(pixKeyRepositoryPort.save(pixKey));
     }
 }

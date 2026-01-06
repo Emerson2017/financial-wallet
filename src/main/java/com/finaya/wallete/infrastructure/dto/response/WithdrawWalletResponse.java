@@ -8,5 +8,5 @@ import java.util.UUID;
 public record WithdrawWalletResponse(UUID walletCode,
                                      UUID eventId,
                                      BigDecimal withdrawAmount,
-                                     CurrencyType currencyType) {
+                                     CurrencyType currency) {
 }
