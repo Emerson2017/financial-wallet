@@ -5,6 +5,6 @@ import com.finaya.wallete.domain.enums.PixKeyType;
 import jakarta.validation.constraints.NotNull;
 
 public record CreatePixKeyRequest (
-        @NotNull @JsonProperty("key_type") PixKeyType pixKeyType,
+        @NotNull @JsonProperty("keyType") PixKeyType pixKeyType,
         String key) {
 }

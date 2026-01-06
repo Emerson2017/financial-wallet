@@ -2,6 +2,7 @@ package com.finaya.wallete.application.usecase.wallet;
 
 import com.finaya.wallete.application.port.out.PixKeyRepositoryPort;
 import com.finaya.wallete.application.port.out.WalletRepositoryPort;
+import com.finaya.wallete.domain.enums.PixKeyType;
 import com.finaya.wallete.domain.exception.EntityNotFoundException;
 import com.finaya.wallete.domain.model.PixKey;
 import com.finaya.wallete.domain.model.Wallet;
@@ -31,7 +32,10 @@ public class CreatePixKeyUseCase {
         Wallet wallet = walletRepositoryPort.findByIdWithLock(walletId)
                 .orElseThrow(() -> new EntityNotFoundException("Wallet Not Found"));
 
-        PixKey pixKey = new PixKey(wallet, request.pixKeyType(), request.key());
+        PixKey pixKey = (request.pixKeyType() == PixKeyType.EVP)
+                ? new PixKey(wallet)
+                : new PixKey(wallet, request.pixKeyType(), request.key());
+
         return mapper.toResponse(pixKeyRepositoryPort.save(pixKey));
     }
 }

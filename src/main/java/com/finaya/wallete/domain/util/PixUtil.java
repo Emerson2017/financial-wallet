@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
+import java.util.UUID;
 
 public class PixUtil {
 
@@ -31,5 +32,9 @@ public class PixUtil {
             sb.append(chars.charAt(RANDOM.nextInt(chars.length())));
         }
         return sb.toString();
+    }
+
+    public static String generateEVPKey() {
+        return UUID.randomUUID().toString();
     }
 }

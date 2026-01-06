@@ -14,7 +14,6 @@ public class PixTransaction {
     private Long id;
     private final String endToEndId;
     private final UUID idempotencyKey;
-
     private final Wallet fromWallet;
     private final Wallet toWallet;
     private final String toPixKey;
